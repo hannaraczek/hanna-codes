@@ -1,8 +1,6 @@
 import {defineConfig} from 'astro/config';
 import netlify from '@astrojs/netlify';
-import image from '@astrojs/image';
 import sitemap from '@astrojs/sitemap';
-import prefetch from '@astrojs/prefetch';
 
 // https://astro.build/config
 import sanity from 'astro-sanity';
@@ -13,9 +11,7 @@ export default defineConfig({
   adapter: netlify(),
   site: 'https://hanna.codes',
   integrations: [
-    image({serviceEntryPoint: '@astrojs/image/sharp'}),
     sitemap({customPages: []}),
-    prefetch(),
     sanity({
       projectId: 'uh7kbf9e',
       dataset: 'production',
