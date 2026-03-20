@@ -1,15 +1,15 @@
-import { defineConfig } from 'sanity'
-import { deskTool } from 'sanity/desk'
-import { visionTool } from '@sanity/vision'
-import { schemaTypes } from './schemas'
+import {defineConfig} from 'sanity'
+import {structureTool} from 'sanity/structure'
+import {visionTool} from '@sanity/vision'
+import {schemaTypes} from './schemaTypes'
 
 export default defineConfig({
   name: 'default',
-  title: 'cms',
-  projectId: '2btdk528',
+  title: 'Hanna Codes',
+  projectId: 'uh7kbf9e',
   dataset: 'production',
-  plugins: [deskTool(), visionTool()],
+  plugins: [structureTool(), visionTool()],
   schema: {
-    types: schemaTypes
-  }
+    types: schemaTypes,
+  },
 })

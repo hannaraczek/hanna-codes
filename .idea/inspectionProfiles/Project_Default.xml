@@ -1,0 +1,27 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="6b553d06-a941-3392-9762-b5941f0c4a01" enabled="true" level="ERROR" enabled_by_default="true" editorAttributes="ERRORS_ATTRIBUTES">
+      <scope name="Project Files" level="ERROR" enabled="true" editorAttributes="ERRORS_ATTRIBUTES" />
+    </inspection_tool>
+    <inspection_tool class="8da6307a-e4c2-3f34-aa07-0200a4e88e3f" enabled="true" level="WARNING" enabled_by_default="true">
+      <scope name="Tests" level="WEAK WARNING" enabled="true" editorAttributes="INFO_ATTRIBUTES" />
+    </inspection_tool>
+    <inspection_tool class="SSBasedInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <replaceConfiguration name="Exclusive tests" problemDescriptor="Exclusive tests are not allowed." cleanup="true" text="$block$.only" recursive="false" caseInsensitive="true" type="JavaScript" dialect="TypeScript" reformatAccordingToStyle="true" shortenFQN="false" replacement="$block$">
+        <constraint name="__context__" within="" contains="" />
+        <constraint name="block" within="" contains="" />
+      </replaceConfiguration>
+      <replaceConfiguration name="Exclusive tests" text="fdescribe" recursive="false" caseInsensitive="false" type="TypeScript" reformatAccordingToStyle="false" shortenFQN="false" replacement="describe">
+        <constraint name="__context__" within="" contains="" />
+      </replaceConfiguration>
+      <replaceConfiguration name="Exclusive tests" text="fit($any$)" recursive="false" caseInsensitive="false" type="TypeScript" reformatAccordingToStyle="false" shortenFQN="false" replacement="it($any$)">
+        <constraint name="__context__" within="" contains="" />
+        <constraint name="any" within="" contains="" />
+      </replaceConfiguration>
+      <searchConfiguration name="Winston logging" problemDescriptor="Winston has been deprecated. The BCAP Logger must be used." text="import * as log from 'winston';" recursive="true" caseInsensitive="true" type="JavaScript" dialect="TypeScript">
+        <constraint name="__context__" within="" contains="" />
+      </searchConfiguration>
+    </inspection_tool>
+  </profile>
+</component>

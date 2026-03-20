@@ -1,5 +1,5 @@
 import {defineConfig} from 'astro/config';
-import netlify from '@astrojs/netlify/functions';
+import netlify from '@astrojs/netlify';
 import image from '@astrojs/image';
 import sitemap from '@astrojs/sitemap';
 import prefetch from '@astrojs/prefetch';
@@ -17,10 +17,10 @@ export default defineConfig({
     sitemap({customPages: []}),
     prefetch(),
     sanity({
-      projectId: '2btdk528',
+      projectId: 'uh7kbf9e',
       dataset: 'production',
-      apiVersion: '2021-03-25',
-      useCdn: false
+      apiVersion: '2026-03-20',
+      useCdn: true
     })
   ]
 });
