@@ -1,0 +1,40 @@
+---
+const pageTitle = "About Me";
+
+const identity = {
+  firstName: "Sarah",
+  country: "US",
+  occupation: "Technical Writer",
+  hobbies: ["photography", "birdwatching", "baseball"],
+  };
+
+const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+</head>
+<body>
+<a href="/">Home</a>
+<a href="/about/">About</a>
+<a href="/blog/">Blog</a>
+<h1>{pageTitle}</h1>
+<h2>... and my new Astro site!</h2>
+
+<p>I am working through Astro's introductory tutorial. This is the second page on my website, and it's the first one I built myself!</p>
+
+<p>My name is {identity.firstName}, and I am from the {identity.country}, working as a {identity.occupation}.</p>
+<p>My hobbies are:</p>
+<ul>
+    {identity.hobbies.map(hobby => <li>{hobby}</li>)}
+</ul>
+{identity.hobbies.length > 2 && <p>Wow! That's a lot!</p>}
+
+</body>
+</html>
