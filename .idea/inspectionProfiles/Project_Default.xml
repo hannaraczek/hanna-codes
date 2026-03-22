@@ -7,6 +7,7 @@
     <inspection_tool class="8da6307a-e4c2-3f34-aa07-0200a4e88e3f" enabled="true" level="WARNING" enabled_by_default="true">
       <scope name="Tests" level="WEAK WARNING" enabled="true" editorAttributes="INFO_ATTRIBUTES" />
     </inspection_tool>
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SSBasedInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <replaceConfiguration name="Exclusive tests" problemDescriptor="Exclusive tests are not allowed." cleanup="true" text="$block$.only" recursive="false" caseInsensitive="true" type="JavaScript" dialect="TypeScript" reformatAccordingToStyle="true" shortenFQN="false" replacement="$block$">
         <constraint name="__context__" within="" contains="" />

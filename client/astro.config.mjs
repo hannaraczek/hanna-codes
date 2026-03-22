@@ -7,11 +7,10 @@ import sanity from 'astro-sanity';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
   adapter: netlify(),
   site: 'https://hanna.codes',
   integrations: [
-    sitemap({customPages: []}),
+    sitemap(),
     sanity({
       projectId: 'uh7kbf9e',
       dataset: 'production',

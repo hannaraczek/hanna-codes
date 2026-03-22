@@ -1,11 +1,12 @@
 {
-  "name": "@example/basics",
+  "name": "hanna-codes",
   "type": "module",
   "version": "0.0.1",
-  "private": true,
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -14,8 +15,6 @@
     "@astrojs/netlify": "^7.0.4",
     "@astrojs/sitemap": "^3.7.1",
     "astro": "^6.0.8",
-    "astro-sanity": "^1.1.2",
-    "blurhash": "^2.0.5",
-    "sharp": "^0.34.5"
+    "astro-sanity": "^1.1.2"
   }
 }

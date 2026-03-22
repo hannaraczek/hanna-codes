@@ -1,5 +1,6 @@
 # build output
-../dist/
+# build output
+dist/
 .output/
 
 # dependencies
@@ -21,3 +22,6 @@ pnpm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# jetbrains setting folder
+.idea/
