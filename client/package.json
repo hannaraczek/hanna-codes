@@ -14,8 +14,10 @@
   "dependencies": {
     "@astrojs/netlify": "^7.0.4",
     "@astrojs/sitemap": "^3.7.1",
+    "@astrojs/solid-js": "^6.0.1",
     "astro": "^6.0.8",
-    "astro-sanity": "^1.1.2"
+    "astro-sanity": "^1.1.2",
+    "solid-js": "^1.9.11"
   },
   "devDependencies": {
     "sass": "^1.98.0"

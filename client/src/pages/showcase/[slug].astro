@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { client, urlFor } from '../../services/sanityClient.ts';
+
+// 1. Generate all showcase routes from Sanity
+export async function getStaticPaths() {
+  const showcases = await client.fetch(`*[_type == "showcase"]{"slug": slug.current }`);
+  return showcases.map((item: any) => ({ params: { slug: item.slug } }));
+}
+
+// 2. Fetch the specific showcase entry
+const { slug } = Astro.params;
+const showcase = await client.fetch(
+  `*[_type == "showcase" && slug.current == $slug][0]{
+    title,
+    description,
+    videoUrl,
+    gallery[]{
+      asset->{
+        url,
+        metadata { dimensions }
+      }
+    }
+  }`,
+  { slug }
+);
+
+// Optional: Handle missing entries gracefully
+if (!showcase) {
+  throw new Error(`Showcase entry not found for slug: ${slug}`);
+}
+---
+
+<BaseLayout pageTitle={showcase.title}>
+    <section class="showcase-header">
+        <p>{showcase.description}</p>
+    </section>
+
+    <!-- Video Embed -->
+  {showcase.videoUrl && (
+          <div class="video-wrapper">
+              <iframe
+                      src={showcase.videoUrl}
+                      allow="autoplay; fullscreen"
+                      allowfullscreen>
+              </iframe>
+          </div>
+  )}
+
+    <!-- Image Gallery -->
+    <section class="gallery">
+      {showcase.gallery?.map((img: any) => (
+        <img
+          src={urlFor(img).width(1600).auto("format").url()}
+          srcset={`
+    ${urlFor(img).width(400).auto("format").url()} 400w,
+    ${urlFor(img).width(800).auto("format").url()} 800w,
+    ${urlFor(img).width(1200).auto("format").url()} 1200w,
+    ${urlFor(img).width(1600).auto("format").url()} 1600w
+  `}
+          sizes="(max-width: 800px) 100vw, 800px"
+          alt=""
+          loading="lazy"
+        />
+
+      ))}
+    </section>
+</BaseLayout>
+
+<style>
+    .video-wrapper {
+        margin: 2rem 0;
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+    }
+
+    .video-wrapper iframe {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .gallery {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+
+    .gallery img {
+        width: 100%;
+        height: auto;
+        border-radius: 6px;
+        object-fit: cover;
+    }
+</style>

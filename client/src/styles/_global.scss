@@ -1,13 +1,17 @@
 html {
-  background-color: #0d1116;
+  background-color: #efefef;
   font-family: sans-serif;
   color: #717cc0;
+}
+
+html.dark {
+  background-color: #0d1116;
 }
 
 body {
   margin: 0 auto;
   width: 100%;
-  max-width: 80ch;
+  max-width: 100ch;
   padding: 1rem;
   line-height: 1.5;
 }

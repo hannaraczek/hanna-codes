@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { client, urlFor } from '../../services/sanityClient.ts';
+const showcases = await client.fetch(`
+  *[_type == "showcase"]{
+    title,
+    "slug": slug.current,
+    "firstImg": gallery[0].asset->url
+  }
+`);
+---
+<BaseLayout pageTitle="Showcase">
+    <h2>Look at all my clients wowee</h2>
+    <ul>
+      {showcases.map((client: any) => (
+              <li>
+                  <a href={`/showcase/${client.slug}`}>
+                      <img
+                              src={urlFor(client.firstImg).width(1600).auto('format').url()}
+                              srcset={`
+    ${urlFor(client.firstImg).width(400).auto('format').url()} 400w,
+    ${urlFor(client.firstImg).width(800).auto('format').url()} 800w,
+    ${urlFor(client.firstImg).width(1200).auto('format').url()} 1200w,
+    ${urlFor(client.firstImg).width(1600).auto('format').url()} 1600w
+  `}
+                              sizes="(max-width: 800px) 100vw, 800px"
+                              alt=""
+                              loading="lazy"
+                      />
+                      <h2>{client.title}</h2>
+                  </a>
+              </li>
+      ))}
+    </ul>
+</BaseLayout>
