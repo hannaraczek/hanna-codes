@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { client, urlFor } from '../services/sanityClient.ts';
+const home = await client.fetch(`
+  *[_type == "home"][0]{
+    header,
+    subheader,
+    services[]{
+      title,
+      description,
+      videoUrl
+    },
+    clientLogos[]{
+      alt,
+      link,
+      logo
+    }
+  }
+`);
+---
+
+<BaseLayout pageTitle={home.header}>
+    <h2>{home.subheader}</h2>
+
+    <div>
+        <p>He does work for:</p>
+        <ul class="logos">{home.clientLogos.map(item => (
+          <a href={item.link || "#"} target="_blank" rel="noopener noreferrer">
+              <p>{item.alt}</p>
+              <img
+                src={urlFor(item.logo).width(300).auto("format").url()}
+                alt={item.alt}
+                loading="lazy"
+              />
+          </a>
+        ))}</ul>
+    </div>
+
+    <div>
+        <p>He offers:</p>
+        <ul class="services">{home.services.map(item => (
+          <li>{item.title} ({item.description})</li>
+        ))}</ul>
+    </div>
+</BaseLayout>
+<style>
+    .logos {
+        display: flex;  gap: 1rem;
+    }
+    a {
+        color: #ff80c5;
+    }
+    .services {
+        display: flex;
+        flex-direction: column;
+    }
+</style>
