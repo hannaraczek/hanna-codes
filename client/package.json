@@ -16,5 +16,8 @@
     "@astrojs/sitemap": "^3.7.1",
     "astro": "^6.0.8",
     "astro-sanity": "^1.1.2"
+  },
+  "devDependencies": {
+    "sass": "^1.98.0"
   }
 }
