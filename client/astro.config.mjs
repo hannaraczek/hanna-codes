@@ -15,6 +15,9 @@ export default defineConfig({
     projectId: 'uh7kbf9e',
     dataset: 'production',
     apiVersion: '2026-03-20',
-    useCdn: true
+    useCdn: true,
+    studio: {
+      basePath: '/studio',
+      config: '../cms/sanity.config.ts'
   }), solidJs()]
 });
