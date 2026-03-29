@@ -4,7 +4,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 import sanity from 'astro-sanity';
-
 import solidJs from '@astrojs/solid-js';
 
 // https://astro.build/config
@@ -19,5 +18,6 @@ export default defineConfig({
     studio: {
       basePath: '/studio',
       config: '../cms/sanity.config.ts'
+    }
   }), solidJs()]
 });
