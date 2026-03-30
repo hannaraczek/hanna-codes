@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { client, urlFor } from '../services/sanityClient.ts';
-const home = await client.fetch(`
+import { SanityClient } from '../services/SanityClient.ts';
+const home = await SanityClient.fetch(`
   *[_type == "home"][0]{
     header,
     subheader,
@@ -27,11 +27,11 @@ const home = await client.fetch(`
         <ul class="logos">{home.clientLogos.map(item => (
           <a href={item.link || "#"} target="_blank" rel="noopener noreferrer">
               <p>{item.alt}</p>
-              <img
-                src={urlFor(item.logo).width(300).auto("format").url()}
-                alt={item.alt}
-                loading="lazy"
-              />
+              <!--<img-->
+              <!--  src={urlFor(item.logo).width(300).auto("format").url()}-->
+              <!--  alt={item.alt}-->
+              <!--  loading="lazy"-->
+              <!--/>-->
           </a>
         ))}</ul>
     </div>
