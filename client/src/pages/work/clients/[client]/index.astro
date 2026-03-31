@@ -5,7 +5,6 @@ export const getStaticPaths = async () => getProjectRoutes();
 
 interface Params {client: string;}
 const { client } = Astro.params as Params;
-
 const projectSlug = await getFirstProjectSlug(client);
 return Astro.redirect(`/work/clients/${client}/projects/${projectSlug}`)
 ---

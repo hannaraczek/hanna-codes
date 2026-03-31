@@ -6,9 +6,3 @@ export interface Client {
   logoUrl: string;
   splash: SanityImageSource
 }
-
-export interface ClientRouteParams {
-  params: {
-    client: string;
-  }
-}
