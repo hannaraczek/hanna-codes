@@ -1,9 +1,6 @@
 ---
-import imageUrlBuilder from '@sanity/image-url';
+import { getSrcSet, getUrl, type ImageContext, ImageSizes } from '@services/ImageHelper.ts';
 import type { SanityImage } from '@services/models/Project.ts';
-import { SanityClient } from '@services/SanityClient.ts';
-
-type ImageContext = 'gallery' | 'content' | 'banner';
 
 interface Props {
   image: SanityImage,
@@ -11,41 +8,11 @@ interface Props {
   alt?: string
 }
 
-const ImageSizes: Record<ImageContext, { defaultDownloadWidth: number, sizes: string }> = {
-  gallery: {
-    defaultDownloadWidth: 800,
-    sizes: '(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw'
-  },
-  content: {
-    defaultDownloadWidth: 1600,
-    sizes: '(max-width: 800px) 100vw, 800px'
-  },
-  banner: {
-    defaultDownloadWidth: 2400,
-    sizes: '100vw'
-  }
-}
-
 const { image, context, alt } = Astro.props;
-
-const widths = [320, 480, 640, 960, 1280];
-if (context === 'banner') { widths.push(...[1920, 2400]); }
-
-const imageBuilder = imageUrlBuilder(SanityClient);
-const getUrl = (width: number) => imageBuilder
-  // TODO: lower the quality for banners, if needed
-  .image(image.asset)
-  .auto('format')
-  .width(width)
-  .url();
-
-const srcSet = widths
-  .map(width => `${getUrl(width)} ${width}w`)
-  .join(', ');
 ---
-    <img
-        src={getUrl(ImageSizes[context].defaultDownloadWidth)}
-        srcset={srcSet}
+<img
+  src={getUrl(image.asset, ImageSizes[context].defaultDownloadWidth)}
+  srcset={getSrcSet(image.asset, context)}
         sizes={ImageSizes[context].sizes}
         alt={alt ?? ''}
         loading="lazy"
@@ -54,4 +21,4 @@ const srcSet = widths
             aspect-ratio: ${image.aspectRatio};
             background-image: url(${image.lqip});`
         }
-    />
+/>

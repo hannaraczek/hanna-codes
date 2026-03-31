@@ -3,7 +3,7 @@ import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 export interface Project {
   name: string;
   shortName: string;
-  type: string; // TODO: dropdown options
+  service: string;
   description: string;
   videoUrl: string | null;
   images: SanityImage[];

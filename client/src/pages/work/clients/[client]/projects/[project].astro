@@ -1,9 +1,8 @@
 ---
-import type { Client } from '@services/models/Client.ts';
 import type { Project } from '@services/models/Project.ts';
-import { getClient, getProject, getProjectRoutes, SanityClient } from '@services/SanityClient.ts';
-import ClientLayout from '../../../../../layouts/ClientLayout.astro';
-import ProjectLayout from '../../../../../layouts/ProjectLayout.astro';
+import { getProjectRoutes } from '@services/SanityClient.ts';
+import ClientLayout from '@layouts/ClientLayout.astro';
+import ProjectLayout from '@layouts/ProjectLayout.astro';
 
 export const getStaticPaths = async () => getProjectRoutes();
 

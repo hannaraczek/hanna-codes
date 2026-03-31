@@ -14,7 +14,7 @@ const projects: ProjectMeta[] = await getProjectMetas(client);
 ---
 
 <BaseLayout pageTitle={clientData.name}>
-    <h1>{clientData.name}</h1>
+    <h1><img src={clientData.logoUrl} alt={`${clientData.name} logo`}></img>{clientData.name}</h1>
     <nav>
         <ul>
           {projects.map(project =>

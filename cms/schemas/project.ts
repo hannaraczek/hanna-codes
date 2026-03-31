@@ -1,4 +1,4 @@
-import { Rule } from 'sanity'
+import {Rule} from 'sanity'
 
 export default {
   name: 'project',
@@ -7,9 +7,15 @@ export default {
   fields: [
     {
       name: 'client',
-      title: 'Client',
+      title: 'Clients',
       type: 'reference',
       to: [{type: 'client'}],
+    },
+    {
+      name: 'service',
+      title: 'Service Type',
+      type: 'reference',
+      to: [{type: 'service'}],
     },
     {
       name: 'fullName',
@@ -29,21 +35,6 @@ export default {
       options: {
         source: 'fullName',
         maxLength: 96,
-      },
-      validation: (rule: Rule) => rule.required(),
-    },
-    {
-      name: 'type',
-      title: 'Project Type',
-      type: 'string',
-      options: {
-        list: [
-          {title: 'Type 1', value: 'type1'},
-          {title: 'Type 2', value: 'type2'},
-          {title: 'Type 3', value: 'type3'},
-          {title: 'Type 4', value: 'type4'},
-        ],
-        layout: 'dropdown',
       },
       validation: (rule: Rule) => rule.required(),
     },

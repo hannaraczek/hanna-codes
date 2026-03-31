@@ -10,12 +10,15 @@ const projectData = await getProject(client, project);
 ---
 
 <h2>{projectData.name}</h2>
-<p>{projectData.type}</p>
+<p>{projectData.service}</p>
 <p>{projectData.description}</p>
 {projectData.videoUrl && <p>Video url is: {projectData.videoUrl}</p>}
+{ projectData.images &&
 <div class="gallery">
-  {projectData.images.map(image => <Image image={image} context="gallery"/>)}
+  {projectData.images.map(image =>
+          <Image image={image} context="gallery"/>)}
 </div>
+  }
 
 <style>
     .gallery {

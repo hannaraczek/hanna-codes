@@ -1,5 +1,6 @@
-import { createClient } from "@sanity/client";
-import type { Client, ClientRouteParams } from '@services/models/Client.ts';
+import { createClient } from '@sanity/client';
+import type { Client } from '@services/models/Client.ts';
+import type { Home } from '@services/models/Home.ts';
 import type { Project, ProjectRouteParams } from '@services/models/Project.ts';
 import type { ProjectMeta } from '@services/models/ProjectMeta.ts';
 
@@ -16,7 +17,7 @@ export const getProject = async (client: string, project: string): Promise<Proje
   && client->slug.current == $client
   ][0]{
     "name": fullName,
-    "type": type.name,
+    "service": service->name,
     "description": description,
     "videoUrl": video.asset->url,
     "images": gallery[]{
@@ -36,18 +37,47 @@ export const getProjectMetas = async (client: string): Promise<ProjectMeta[]> =>
   ] | order(_createdAt desc) {
     "slug": slug.current,
     "shortName":  coalesce(shortName, fullName)
-  }`, { client })
+  }`, { client });
+
+export const getFirstProjectSlug = async (client: string): Promise<string> => SanityClient.fetch<string>(`
+  *[
+    _type == "project" &&
+    client->slug.current == $client
+  ] | order(_createdAt desc) {
+    "slug": slug.current
+  }.slug`, { client });
 
 export const getClient = async (client: string): Promise<Client> => SanityClient.fetch<Client>(`*[
   _type == "client" &&
-  slug.current == $client
-  ][0]{ name, "slug": slug.current }
-`, { client })
+  slug.current == $client][0]{ 
+    name, 
+    "slug": slug.current,
+    "logoUrl": logo.asset->url,
+    "splash": splash.asset 
+  }
+`, { client });
 
-export const getProjectRoutes = async (): Promise<ProjectRouteParams> => SanityClient.fetch(`*[_type == "project"]{
+export const getProjectRoutes = async (): Promise<ProjectRouteParams[]> => SanityClient.fetch(`*[_type == "project"]{
   "params": {
     "project": slug.current,
     "client": client->slug.current
   }
 }`);
 
+export const getHome = async (): Promise<Home> => SanityClient.fetch<Home>(`
+  *[_type == "home"][0]{
+    "header": header,
+    "subheader": subheader,
+    "logos": featuredLogos[]->logo.asset->url,
+    "services": services[]->{
+      name,
+      description
+    },
+    "clients": featuredClients[]->{
+      name,
+      "logoUrl": logo.asset->url,
+      "slug": slug.current,
+      "splash": splash.asset
+    }
+  }
+`)
