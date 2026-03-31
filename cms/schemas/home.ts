@@ -1,3 +1,5 @@
+import {Rule} from 'sanity'
+
 export default {
   name: 'home',
   type: 'document',
@@ -14,64 +16,25 @@ export default {
       title: 'Subheader',
     },
     {
-      name: 'services',
+      name: 'featuredClients',
+      title: 'Featured Clients',
       type: 'array',
-      title: 'Services',
-      of: [
-        {
-          type: 'object',
-          name: 'service',
-          title: 'Service',
-          fields: [
-            {
-              name: 'title',
-              type: 'string',
-              title: 'Title',
-            },
-            {
-              name: 'description',
-              type: 'text',
-              title: 'Description',
-            },
-            {
-              name: 'videoUrl',
-              type: 'url',
-              title: 'YouTube Video URL',
-            },
-          ],
-        },
-      ],
+      of: [{type: 'reference', to: [{type: 'client'}]}],
+      validation: (rule: Rule) => rule.required().max(6),
     },
     {
-      name: 'clientLogos',
+      name: 'featuredLogos',
+      title: 'Featured Logos',
       type: 'array',
-      title: 'Client Logos',
-      of: [
-        {
-          type: 'object',
-          name: 'logoItem',
-          title: 'Logo',
-          fields: [
-            {
-              name: 'logo',
-              type: 'image',
-              title: 'Logo Image',
-              options: {hotspot: true},
-            },
-            {
-              name: 'alt',
-              type: 'string',
-              title: 'Alt Text',
-            },
-            {
-              name: 'link',
-              type: 'url',
-              title: 'Optional Link',
-              description: 'If provided, clicking the logo will open this URL',
-            },
-          ],
-        },
-      ],
+      of: [{type: 'reference', to: [{type: 'client'}]}],
+      validation: (rule: Rule) => rule.max(6),
+    },
+    {
+      name: 'services',
+      title: 'Featured Services',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'service'}]}],
+      validation: (rule: Rule) => rule.max(6),
     },
   ],
 }

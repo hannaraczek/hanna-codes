@@ -1,51 +1,55 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { client, urlFor } from '../services/sanityClient.ts';
-const home = await client.fetch(`
-  *[_type == "home"][0]{
-    header,
-    subheader,
-    services[]{
-      title,
-      description,
-      videoUrl
-    },
-    clientLogos[]{
-      alt,
-      link,
-      logo
-    }
-  }
-`);
+import { getUrl, ImageSizes } from '@services/ImageHelper.ts';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getHome } from '@services/SanityClient.ts';
+const home = await getHome();
 ---
 
 <BaseLayout pageTitle={home.header}>
+    <h1>{home.header}</h1>
     <h2>{home.subheader}</h2>
 
     <div>
-        <p>He does work for:</p>
-        <ul class="logos">{home.clientLogos.map(item => (
-          <a href={item.link || "#"} target="_blank" rel="noopener noreferrer">
-              <p>{item.alt}</p>
-              <img
-                src={urlFor(item.logo).width(300).auto("format").url()}
-                alt={item.alt}
-                loading="lazy"
-              />
+        <p>Look at these cool client logos</p>
+        <ul class="logos">{home.logos.map(item => (
+          <img src={item} alt="logo"></img>
+        ))}
+        </ul>
+    </div>
+
+    <div>
+        <p>These are his featured clients!</p>
+        <ul>{home.clients.map(client => (
+          <a href=`/work/clients/${client.slug}`>
+              <div
+                style={`background-image: url(${getUrl(client.splash, ImageSizes['banner'].defaultDownloadWidth)})`}
+                class="featured-client">
+                  <p><img src={client.logoUrl} aria-hidden="true" alt=`${client.name} logo`/>{client.name}</p>
+              </div>
           </a>
-        ))}</ul>
+        ))}
+        </ul>
     </div>
 
     <div>
         <p>He offers:</p>
-        <ul class="services">{home.services.map(item => (
-          <li>{item.title} ({item.description})</li>
+        <ul class="services">{home.services.map(service => (
+          <li>{service.name} ({service.description})</li>
         ))}</ul>
     </div>
 </BaseLayout>
+
 <style>
+    .featured-client {
+        height: 250px;
+    }
+
+    img {
+        height: 32px;
+    }
     .logos {
-        display: flex;  gap: 1rem;
+        display: flex;
+        gap: 1rem;
     }
     a {
         color: #ff80c5;

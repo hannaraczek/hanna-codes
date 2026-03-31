@@ -1,0 +1,27 @@
+---
+import type { Client } from '@services/models/Client.ts';
+import type { ProjectMeta } from '@services/models/ProjectMeta.ts';
+import { getClient, getProjectMetas } from '@services/SanityClient.ts';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  client: string;
+}
+
+const { client } = Astro.props;
+const clientData: Client = await getClient(client);
+const projects: ProjectMeta[] = await getProjectMetas(client);
+---
+
+<BaseLayout pageTitle={clientData.name}>
+    <h1><img src={clientData.logoUrl} alt={`${clientData.name} logo`}></img>{clientData.name}</h1>
+    <nav>
+        <ul>
+          {projects.map(project =>
+            <li><a href={`/work/clients/${client}/projects/${project.slug}`}>{project.shortName}</a></li>)}
+        </ul>
+    </nav>
+    <section>
+        <slot/>
+    </section>
+</BaseLayout>

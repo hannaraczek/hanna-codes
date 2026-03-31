@@ -1,0 +1,20 @@
+---
+import type { Project } from '@services/models/Project.ts';
+import { getProjectRoutes } from '@services/SanityClient.ts';
+import ClientLayout from '@layouts/ClientLayout.astro';
+import ProjectLayout from '@layouts/ProjectLayout.astro';
+
+export const getStaticPaths = async () => getProjectRoutes();
+
+interface Params {
+  project: string;
+  client: string;
+}
+
+const { client, project } = Astro.params as Params;
+---
+<ClientLayout client={client}>
+    <ProjectLayout client={client} project={project}></ProjectLayout>
+</ClientLayout>
+
+

@@ -1,0 +1,24 @@
+---
+import { getSrcSet, getUrl, type ImageContext, ImageSizes } from '@services/ImageHelper.ts';
+import type { SanityImage } from '@services/models/Project.ts';
+
+interface Props {
+  image: SanityImage,
+  context: ImageContext,
+  alt?: string
+}
+
+const { image, context, alt } = Astro.props;
+---
+<img
+  src={getUrl(image.asset, ImageSizes[context].defaultDownloadWidth)}
+  srcset={getSrcSet(image.asset, context)}
+        sizes={ImageSizes[context].sizes}
+        alt={alt ?? ''}
+        loading="lazy"
+        decoding="async"
+        style={`
+            aspect-ratio: ${image.aspectRatio};
+            background-image: url(${image.lqip});`
+        }
+/>

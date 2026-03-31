@@ -9,6 +9,14 @@
   ],
   "compilerOptions": {
     "jsx": "preserve",
-    "jsxImportSource": "solid-js"
-  }
+    "jsxImportSource": "solid-js",
+    "paths": {
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@layouts/*": [
+        "src/layouts/*"
+      ]
+    }
+  },
 }

@@ -1,0 +1,40 @@
+---
+import { getProject } from '@services/SanityClient.ts';
+import Image from '../components/Image.astro';
+interface Props {
+  client: string,
+  project: string
+}
+const { client, project } = Astro.props
+const projectData = await getProject(client, project);
+---
+
+<h2>{projectData.name}</h2>
+<p>{projectData.service}</p>
+<p>{projectData.description}</p>
+{projectData.videoUrl && <p>Video url is: {projectData.videoUrl}</p>}
+{ projectData.images &&
+<div class="gallery">
+  {projectData.images.map(image =>
+          <Image image={image} context="gallery"/>)}
+</div>
+  }
+
+<style>
+    .gallery {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 600px) {
+        .gallery {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (min-width: 1000px) {
+        .gallery {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+</style>
