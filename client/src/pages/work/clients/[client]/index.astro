@@ -1,6 +1,7 @@
 ---
 import { getFirstProjectSlug, getProjectRoutes } from '@services/SanityClient.ts';
 
+export const prerender = false;
 export const getStaticPaths = async () => getProjectRoutes();
 
 interface Params {client: string;}
