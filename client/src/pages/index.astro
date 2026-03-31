@@ -12,7 +12,7 @@ const home = await getHome();
     <div>
         <p>Look at these cool client logos</p>
         <ul class="logos">{home.logos.map(item => (
-          <img src={item} alt="logo"></img>
+                <img src={item} alt="logo"></img>
         ))}
         </ul>
     </div>
@@ -20,13 +20,13 @@ const home = await getHome();
     <div>
         <p>These are his featured clients!</p>
         <ul>{home.clients.map(client => (
-          <a href=`/work/clients/${client.slug}`>
-              <div
-                style={`background-image: url(${getUrl(client.splash, ImageSizes['banner'].defaultDownloadWidth)})`}
-                class="featured-client">
-                  <p><img src={client.logoUrl} aria-hidden="true" alt=`${client.name} logo`/>{client.name}</p>
-              </div>
-          </a>
+                <a href=`/work/clients/${client.slug}`>
+                    <div
+                            style={`background-image: url(${getUrl(client.splash, ImageSizes['banner'].defaultDownloadWidth)})`}
+                            class="featured-client">
+                        <p><img src={client.logoUrl} aria-hidden="true" alt=`${client.name} logo`/>{client.name}</p>
+                    </div>
+                </a>
         ))}
         </ul>
     </div>
@@ -34,7 +34,7 @@ const home = await getHome();
     <div>
         <p>He offers:</p>
         <ul class="services">{home.services.map(service => (
-          <li>{service.name} ({service.description})</li>
+                <li>{service.name} ({service.description})</li>
         ))}</ul>
     </div>
 </BaseLayout>
@@ -47,13 +47,16 @@ const home = await getHome();
     img {
         height: 32px;
     }
+
     .logos {
         display: flex;
         gap: 1rem;
     }
+
     a {
         color: #ff80c5;
     }
+
     .services {
         display: flex;
         flex-direction: column;
